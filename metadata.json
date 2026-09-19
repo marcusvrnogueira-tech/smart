@@ -1,0 +1,6 @@
+{
+  "name": "SmartTrip",
+  "description": "Planejador de viagens inteligente com itinerários dinâmicos, controle de orçamento, previsão climática e suporte para links diretos de imagens.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

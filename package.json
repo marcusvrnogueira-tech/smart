@@ -1,0 +1,51 @@
+{
+  "name": "smarttrip",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0",
+    "npm": ">=10.8.0"
+  },
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist server.js",
+    "lint": "tsc --noEmit",
+    "test:firebase": "node scripts/verify-firebase.mjs",
+    "test:auth": "tsx scripts/verify-auth.mjs",
+    "test:firestore": "tsx scripts/verify-firestore.mjs",
+    "test:avail-pref": "tsx scripts/verify-avail-pref.mjs",
+    "test:geocoding": "tsx scripts/verify-geocoding.mjs",
+    "test:weather": "tsx scripts/verify-weather.mjs",
+    "test:routes": "node scripts/verify-routes.mjs",
+    "test": "npm run test:firebase && npm run test:auth && npm run test:firestore && npm run test:avail-pref && npm run test:geocoding && npm run test:weather && npm run test:routes"
+  },
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.1",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "firebase": "^12.19.0",
+    "firebase-admin": "^13.10.0",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "vite": "^8.3.0"
+  },
+  "devDependencies": {
+    "@rolldown/binding-win32-x64-msvc": "^1.2.9",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.28.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^7.0.2"
+  }
+}
