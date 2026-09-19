@@ -74,6 +74,16 @@ export function translateAuthError(errorCode: string): string {
       return 'O processo de login com o Google foi cancelado antes da conclusão.';
     case 'auth/network-request-failed':
       return 'Falha de conexão com a internet. Verifique sua rede e tente novamente.';
+    case 'auth/configuration-not-found':
+      return 'O serviço Firebase Authentication ainda não foi ativado no Firebase Console ou o provedor de E-mail/Senha está desligado. Acesse Firebase Console > Authentication > Sign-in method para ativar.';
+    case 'auth/operation-not-allowed':
+      return 'O provedor de E-mail/Senha não está habilitado no Firebase Console. Ative em Firebase Console > Authentication > Sign-in method.';
+    case 'auth/unauthorized-domain':
+      return 'O domínio atual (localhost) não está autorizado no Firebase Console > Authentication > Settings > Authorized domains.';
+    case 'auth/api-key-not-valid':
+      return 'A chave de API (VITE_FIREBASE_API_KEY) informada no .env.local não é válida no Google Cloud.';
+    case 'permission-denied':
+      return 'Permissão negada no Firestore ao criar/ler perfil de usuário. Verifique as regras de segurança (firestore.rules).';
     default:
       return 'Ocorreu um erro na autenticação. Tente novamente.';
   }
@@ -159,6 +169,7 @@ export async function registerWithEmail(input: RegisterInput): Promise<AuthUserP
     const cred = await createUserWithEmailAndPassword(auth, input.email, input.password);
     return await ensureUserProfile(cred.user.uid, input.email, input.name);
   } catch (error: any) {
+    console.error('[SmartTrip Auth Error]', error?.code, error?.message);
     throw new Error(translateAuthError(error.code || ''));
   }
 }
@@ -177,6 +188,7 @@ export async function loginWithEmail(input: LoginInput): Promise<AuthUserProfile
     const cred = await signInWithEmailAndPassword(auth, input.email, input.password);
     return await ensureUserProfile(cred.user.uid, cred.user.email || input.email, cred.user.displayName || '');
   } catch (error: any) {
+    console.error('[SmartTrip Auth Error]', error?.code, error?.message);
     throw new Error(translateAuthError(error.code || ''));
   }
 }
@@ -197,6 +209,7 @@ export async function loginWithGoogle(): Promise<AuthUserProfile> {
       cred.user.photoURL
     );
   } catch (error: any) {
+    console.error('[SmartTrip Auth Error]', error?.code, error?.message);
     throw new Error(translateAuthError(error.code || ''));
   }
 }
